@@ -120,15 +120,15 @@ export const portfolioItems = [
     image: "/portfolio/google-ads.png",
     liveUrl: "#",
   },
-  {
-    title: "Business Landing Page",
-    category: "Landing Page",
-    serviceType: "Landing Page Design",
-    tech: ["Next.js", "Tailwind CSS", "Framer Motion"],
-    results: ["Lead focused UI", "Fast loading", "Responsive design"],
-    description:
-      "A fast and modern landing page focused on lead generation and service enquiries.",
-    image: "/portfolio/business.jpg",
-    liveUrl: "#",
-  },
+  // {
+  //   title: "Business Landing Page",
+  //   category: "Landing Page",
+  //   serviceType: "Landing Page Design",
+  //   tech: ["Next.js", "Tailwind CSS", "Framer Motion"],
+  //   results: ["Lead focused UI", "Fast loading", "Responsive design"],
+  //   description:
+  //     "A fast and modern landing page focused on lead generation and service enquiries.",
+  //   image: "/portfolio/business.jpg",
+  //   liveUrl: "#",
+  // },
 ];
