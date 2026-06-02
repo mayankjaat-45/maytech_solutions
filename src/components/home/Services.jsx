@@ -36,8 +36,9 @@ export default function Services() {
             const Icon = service.icon;
 
             return (
-              <div
-                key={service.title}
+              <Link
+                href={`/services/${service.slug}`}
+                key={service.slug}
                 className="group rounded-[26px] border border-(--border-soft) bg-white p-6 shadow-(--shadow-soft) transition duration-300 hover:-translate-y-1 hover:border-[rgba(255,153,0,0.35)] hover:shadow-(--shadow-medium)"
               >
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-(--primary-soft) text-(--primary-dark) transition group-hover:bg-(--primary) group-hover:text-white">
@@ -48,10 +49,28 @@ export default function Services() {
                   {service.title}
                 </h3>
 
-                <p className="text-sm leading-relaxed text-(--text-muted)">
+                <p className="mb-5 text-sm leading-relaxed text-(--text-muted)">
                   {service.description}
                 </p>
-              </div>
+
+                <div className="mb-5 flex flex-wrap gap-2">
+                  <span className="rounded-full bg-(--primary-soft) px-3 py-1.5 text-[11px] font-black text-(--primary-dark)">
+                    {service.startingPrice}
+                  </span>
+
+                  <span className="rounded-full bg-(--bg-main) px-3 py-1.5 text-[11px] font-black text-(--secondary)">
+                    {service.timeline}
+                  </span>
+                </div>
+
+                <div className="inline-flex items-center gap-2 text-sm font-bold text-(--primary-dark)">
+                  Explore
+                  <ArrowRight
+                    size={16}
+                    className="transition group-hover:translate-x-1"
+                  />
+                </div>
+              </Link>
             );
           })}
         </div>

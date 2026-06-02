@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { services } from "@/data/services";
 
 export const metadata = {
@@ -34,8 +36,9 @@ export default function ServicesPage() {
               const Icon = service.icon;
 
               return (
-                <div
-                  key={service.title}
+                <Link
+                  href={`/services/${service.slug}`}
+                  key={service.slug}
                   className="group rounded-[28px] border border-(--border-soft) bg-white p-6 shadow-(--shadow-soft) transition duration-300 hover:-translate-y-2 hover:border-[rgba(255,153,0,0.4)] hover:shadow-(--shadow-medium)"
                 >
                   <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-(--primary-soft) text-(--primary-dark) transition group-hover:bg-(--primary) group-hover:text-white">
@@ -46,10 +49,28 @@ export default function ServicesPage() {
                     {service.title}
                   </h3>
 
-                  <p className="leading-relaxed text-(--text-muted)">
+                  <p className="mb-5 leading-relaxed text-(--text-muted)">
                     {service.description}
                   </p>
-                </div>
+
+                  <div className="mb-5 flex flex-wrap gap-3">
+                    <span className="rounded-full bg-(--primary-soft) px-4 py-2 text-xs font-black text-(--primary-dark)">
+                      Starts {service.startingPrice}
+                    </span>
+
+                    <span className="rounded-full bg-(--bg-soft) px-4 py-2 text-xs font-black text-(--secondary)">
+                      {service.timeline}
+                    </span>
+                  </div>
+
+                  <div className="inline-flex items-center gap-2 text-sm font-bold text-(--primary-dark)">
+                    View Details
+                    <ArrowRight
+                      size={17}
+                      className="transition group-hover:translate-x-1"
+                    />
+                  </div>
+                </Link>
               );
             })}
           </div>
