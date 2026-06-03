@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 const services = [
   "Website Development",
@@ -16,6 +17,24 @@ const quickLinks = [
   { label: "Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Contact", href: "/contact" },
+];
+
+const socialLinks = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/share/1H188Rj5YK",
+    icon: FaFacebookF,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/maytech.solutions",
+    icon: FaInstagram,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/socialglow-online/",
+    icon: FaLinkedinIn,
+  },
 ];
 
 export default function Footer() {
@@ -74,25 +93,24 @@ export default function Footer() {
             </p>
 
             <div className="mt-6 flex gap-3">
-              <a
-                href="#"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-(--border-soft) bg-white text-(--secondary) shadow-sm transition hover:bg-(--primary) hover:text-white"
-                aria-label="Facebook"
-              />
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
 
-              <a
-                href="#"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-(--border-soft) bg-white text-(--secondary) shadow-sm transition hover:bg-(--primary) hover:text-white"
-                aria-label="Instagram"
-              />
-
-              <a
-                href="https://www.linkedin.com/company/socialglow-online/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-(--border-soft) bg-white text-(--secondary) shadow-sm transition hover:bg-(--primary) hover:text-white"
-                aria-label="LinkedIn"
-              />
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target={social.href === "#" ? undefined : "_blank"}
+                    rel={
+                      social.href === "#" ? undefined : "noopener noreferrer"
+                    }
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-(--border-soft) bg-white text-(--secondary) shadow-sm transition hover:-translate-y-1 hover:bg-(--primary) hover:text-white"
+                    aria-label={social.label}
+                  >
+                    <Icon size={17} />
+                  </a>
+                );
+              })}
             </div>
           </div>
 
