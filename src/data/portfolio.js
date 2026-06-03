@@ -11,6 +11,17 @@ export const portfolioItems = [
     liveUrl: "https://vini-clinic-web.vercel.app",
   },
   {
+    title: "Aurelia Store",
+    category: "E-commerce Website",
+    serviceType: "Website Development",
+    tech: ["Next.js", "Tailwind CSS", "Responsive UI"],
+    results: ["Product listing", "Modern store UI", "Mobile responsive"],
+    description:
+      "A modern e-commerce store website with premium product layout, responsive design, and clean shopping experience.",
+    image: "/portfolio/aurelia-store.png",
+    liveUrl: "https://aurelia-store-nu.vercel.app/",
+  },
+  {
     title: "Travel Booking Website",
     category: "Travel Platform",
     serviceType: "Website Development",
