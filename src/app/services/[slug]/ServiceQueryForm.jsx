@@ -7,7 +7,6 @@ const WHATSAPP_NUMBER = "918279380553";
 
 export default function ServiceQueryForm({
   serviceTitle,
-  startingPrice,
   timeline,
   serviceSlug,
   serviceDetail,
@@ -42,7 +41,6 @@ export default function ServiceQueryForm({
 I want to start/query about this service.
 
 Service: ${serviceTitle}
-Starting Price: ${startingPrice}
 Timeline: ${timeline}
 Service Slug: ${serviceSlug}
 
@@ -56,7 +54,7 @@ Client Details:
 Name: ${form.name}
 Phone: ${form.phone}
 Email: ${form.email || "Not provided"}
-Selected Budget: ${form.budget || "Not selected"}
+Estimated Budget: ${form.budget || "Not selected"}
 
 Project Requirement:
 ${form.message || "I want to discuss this service."}`;
@@ -79,7 +77,7 @@ ${form.message || "I want to discuss this service."}`;
         </h2>
 
         <p className="mt-3 leading-relaxed text-(--text-muted)">
-          Share your details and connect instantly with us.
+          Share your details and connect instantly with us for a custom quote.
         </p>
       </div>
 
@@ -94,11 +92,11 @@ ${form.message || "I want to discuss this service."}`;
 
         <div className="flex flex-wrap gap-2">
           <span className="rounded-full bg-(--primary-soft) px-4 py-2 text-xs font-black text-(--primary-dark)">
-            Starts {startingPrice}
+            Custom Quote
           </span>
 
           <span className="rounded-full bg-white px-4 py-2 text-xs font-black text-(--secondary)">
-            {timeline}
+            Timeline: {timeline}
           </span>
         </div>
       </div>
@@ -205,7 +203,7 @@ ${form.message || "I want to discuss this service."}`;
           type="submit"
           className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-(--primary) px-6 py-4 text-sm font-black uppercase tracking-[0.18em] text-white shadow-(--shadow-soft) transition hover:-translate-y-1 hover:bg-(--primary-dark) hover:shadow-(--shadow-medium)"
         >
-          Send on WhatsApp
+          Request Custom Quote
           <Send size={18} className="transition group-hover:translate-x-1" />
         </button>
       </form>

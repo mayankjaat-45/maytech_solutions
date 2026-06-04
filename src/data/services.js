@@ -19,7 +19,7 @@ export const services = [
       "Modern and interactive websites built with React.js for businesses, startups, and agencies.",
     detail:
       "We build modern, responsive and interactive React.js websites with clean components, smooth user experience and scalable frontend structure.",
-    startingPrice: "₹12,999",
+
     timeline: "5 - 10 days",
     features: [
       "Custom React.js website UI",
@@ -38,7 +38,7 @@ export const services = [
       "SEO-friendly and high-performance websites using Next.js App Router and modern frontend practices.",
     detail:
       "We create fast, SEO-friendly and professional Next.js websites using App Router, dynamic pages, metadata and deployment-ready structure.",
-    startingPrice: "₹15,999",
+
     timeline: "7 - 14 days",
     features: [
       "Next.js App Router setup",
@@ -57,7 +57,7 @@ export const services = [
       "Professional WordPress websites for businesses, blogs, portfolios, and service-based brands with easy content management.",
     detail:
       "We design professional WordPress websites that are easy to manage, mobile responsive and suitable for business, blog, portfolio and service brands.",
-    startingPrice: "₹9,999",
+
     timeline: "5 - 12 days",
     features: [
       "WordPress setup",
@@ -76,7 +76,7 @@ export const services = [
       "Professional websites that showcase your services, build trust, and generate quality enquiries.",
     detail:
       "We build premium business portfolio websites that highlight your services, brand story, portfolio, testimonials and enquiry options.",
-    startingPrice: "₹10,999",
+
     timeline: "5 - 10 days",
     features: [
       "Home, About and Services pages",
@@ -95,7 +95,7 @@ export const services = [
       "Conversion-focused landing pages for ads, campaigns, product launches, and lead generation.",
     detail:
       "We create landing pages focused on leads and conversions with strong copy structure, clear call-to-actions and premium visual sections.",
-    startingPrice: "₹6,999",
+
     timeline: "3 - 7 days",
     features: [
       "Conversion-focused hero section",
@@ -114,7 +114,7 @@ export const services = [
       "On-page SEO, metadata setup, schema, performance improvements, and search-friendly structure.",
     detail:
       "We optimize your website pages for search engines with proper metadata, headings, image alt text, page structure and technical improvements.",
-    startingPrice: "₹7,999",
+
     timeline: "5 - 15 days",
     features: [
       "Title and meta description setup",
@@ -133,7 +133,7 @@ export const services = [
       "Campaign setup and optimization to help businesses reach the right customers online.",
     detail:
       "We help businesses run Google Ads campaigns with proper campaign structure, keyword planning, ad copy and lead-generation strategy.",
-    startingPrice: "₹8,999",
+
     timeline: "Monthly",
     features: [
       "Campaign setup",
@@ -152,7 +152,7 @@ export const services = [
       "Upgrade old websites with modern design, better speed, responsive layout, and improved user experience.",
     detail:
       "We redesign outdated websites into modern, responsive and professional websites with better layout, speed, user experience and brand presentation.",
-    startingPrice: "₹11,999",
+
     timeline: "7 - 14 days",
     features: [
       "Modern UI redesign",
@@ -171,7 +171,7 @@ export const services = [
       "Improve loading speed, Core Web Vitals, image optimization, and mobile performance.",
     detail:
       "We improve your website speed by optimizing images, layout, code structure, loading behavior and mobile performance.",
-    startingPrice: "₹5,999",
+
     timeline: "3 - 7 days",
     features: [
       "Image optimization",

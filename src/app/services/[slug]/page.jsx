@@ -4,7 +4,6 @@ import {
   ArrowLeft,
   CheckCircle2,
   Clock3,
-  IndianRupee,
   MessageCircle,
   Sparkles,
 } from "lucide-react";
@@ -90,29 +89,29 @@ export default async function ServiceDetailPage({ params }) {
               <div className="mb-8 grid gap-5 sm:grid-cols-2">
                 <div className="rounded-3xl border border-(--border-soft) bg-white p-5 shadow-(--shadow-soft)">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-(--primary-soft) text-(--primary-dark)">
-                    <IndianRupee size={22} />
+                    <Clock3 size={22} />
                   </div>
 
                   <p className="mb-1 text-sm font-bold text-(--text-muted)">
-                    Starting Price
+                    Estimated Timeline
                   </p>
 
                   <h3 className="text-2xl font-black text-(--secondary)">
-                    {service.startingPrice}
+                    {service.timeline}
                   </h3>
                 </div>
 
                 <div className="rounded-3xl border border-(--border-soft) bg-white p-5 shadow-(--shadow-soft)">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-(--primary-soft) text-(--primary-dark)">
-                    <Clock3 size={22} />
+                    <MessageCircle size={22} />
                   </div>
 
                   <p className="mb-1 text-sm font-bold text-(--text-muted)">
-                    Timeline
+                    Pricing
                   </p>
 
                   <h3 className="text-2xl font-black text-(--secondary)">
-                    {service.timeline}
+                    Custom Quote
                   </h3>
                 </div>
               </div>
@@ -158,14 +157,14 @@ export default async function ServiceDetailPage({ params }) {
 
                 <p className="leading-relaxed text-(--text-muted)">
                   Fill the quick form and it will open WhatsApp with your
-                  service name, starting price, timeline and project details.
+                  service name, timeline and project details. We will share a
+                  custom quote after understanding your requirement.
                 </p>
               </div>
             </div>
 
             <ServiceQueryForm
               serviceTitle={service.title}
-              startingPrice={service.startingPrice}
               timeline={service.timeline}
               serviceSlug={service.slug}
               serviceDetail={service.detail}

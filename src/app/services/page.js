@@ -55,11 +55,11 @@ export default function ServicesPage() {
 
                   <div className="mb-5 flex flex-wrap gap-3">
                     <span className="rounded-full bg-(--primary-soft) px-4 py-2 text-xs font-black text-(--primary-dark)">
-                      Starts {service.startingPrice}
+                      Custom Quote
                     </span>
 
                     <span className="rounded-full bg-(--bg-soft) px-4 py-2 text-xs font-black text-(--secondary)">
-                      {service.timeline}
+                      Timeline: {service.timeline}
                     </span>
                   </div>
 

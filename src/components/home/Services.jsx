@@ -54,12 +54,12 @@ export default function Services() {
                 </p>
 
                 <div className="mb-5 flex flex-wrap gap-2">
-                  <span className="rounded-full bg-(--primary-soft) px-3 py-1.5 text-[11px] font-black text-(--primary-dark)">
-                    {service.startingPrice}
+                  <span className="rounded-full bg-(--bg-main) px-3 py-1.5 text-[11px] font-black text-(--secondary)">
+                    Timeline: {service.timeline}
                   </span>
 
-                  <span className="rounded-full bg-(--bg-main) px-3 py-1.5 text-[11px] font-black text-(--secondary)">
-                    {service.timeline}
+                  <span className="rounded-full bg-(--primary-soft) px-3 py-1.5 text-[11px] font-black text-(--primary-dark)">
+                    Custom Quote
                   </span>
                 </div>
 
