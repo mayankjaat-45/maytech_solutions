@@ -4,6 +4,7 @@ import {
   Globe,
   LayoutTemplate,
   LineChart,
+  Megaphone,
   MonitorSmartphone,
   Rocket,
   Search,
@@ -123,6 +124,25 @@ export const services = [
       "Schema markup guidance",
       "Internal linking suggestions",
       "Core technical SEO checks",
+    ],
+  },
+  {
+    icon: Megaphone,
+    slug: "meta-ads-management",
+    title: "Meta Ads Management",
+    description:
+      "Facebook and Instagram ads setup and management to help businesses generate leads, traffic, and sales.",
+    detail:
+      "We help businesses run effective Meta Ads campaigns on Facebook and Instagram with proper audience targeting, ad creatives, campaign setup, and lead-generation strategy.",
+
+    timeline: "Monthly",
+    features: [
+      "Facebook and Instagram ads setup",
+      "Audience targeting strategy",
+      "Campaign structure planning",
+      "Ad creative suggestions",
+      "Lead generation campaign setup",
+      "Basic performance optimization",
     ],
   },
   {
