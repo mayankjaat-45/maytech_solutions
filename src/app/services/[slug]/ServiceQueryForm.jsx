@@ -1,212 +1,426 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, MessageSquare, Phone, Send, User } from "lucide-react";
+import { Loader2, Mail, MessageSquare, Phone, Send, User } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
 
 const WHATSAPP_NUMBER = "918279380553";
+
+const initialForm = {
+  name: "",
+  phone: "",
+  email: "",
+  budget: "",
+  message: "",
+
+  // Honeypot field for basic spam protection.
+  website: "",
+};
+
+const budgetOptions = [
+  {
+    value: "10000",
+    label: "Below ₹10,000",
+  },
+  {
+    value: "25000",
+    label: "₹10,000 - ₹25,000",
+  },
+  {
+    value: "50000",
+    label: "₹25,000 - ₹50,000",
+  },
+  {
+    value: "75000",
+    label: "₹50,000+",
+  },
+];
+
+const getBudgetLabel = (value) => {
+  if (!value) return "Not selected";
+
+  return (
+    budgetOptions.find((option) => option.value === value)?.label ||
+    "Not selected"
+  );
+};
+
+const cleanPhone = (phone) => {
+  return String(phone || "").replace(/\D/g, "");
+};
 
 export default function ServiceQueryForm({
   serviceTitle,
   timeline,
   serviceSlug,
   serviceDetail,
-  serviceFeatures,
+  serviceFeatures = [],
 }) {
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    budget: "",
-    message: "",
-  });
+  const [form, setForm] = useState(initialForm);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-    setForm((prev) => ({
-      ...prev,
+    setForm((previous) => ({
+      ...previous,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    const featuresText = serviceFeatures
-      ?.map((feature, index) => `${index + 1}. ${feature}`)
-      .join("\n");
+    const customerName = form.name.trim();
+    const cleanedPhone = cleanPhone(form.phone);
+    const normalizedEmail = form.email.trim().toLowerCase();
+    const requirement = form.message.trim();
 
-    const whatsappMessage = `Hello MayTech Solutions,
+    if (!customerName || customerName.length < 2) {
+      toast.error("Please enter your full name");
+      return;
+    }
 
-I want to start/query about this service.
+    if (!cleanedPhone || cleanedPhone.length < 10 || cleanedPhone.length > 15) {
+      toast.error("Please enter a valid phone number");
+      return;
+    }
 
-Service: ${serviceTitle}
-Timeline: ${timeline}
-Service Slug: ${serviceSlug}
+    /*
+     * Open a blank tab immediately so the browser does not block
+     * WhatsApp after the asynchronous CRM request finishes.
+     */
+    const whatsappWindow = window.open("", "_blank");
 
-Service Detail:
-${serviceDetail}
+    try {
+      setSubmitting(true);
 
-Service Features:
-${featuresText}
+      const response = await fetch("/api/website-lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: customerName,
+          phone: cleanedPhone,
+          email: normalizedEmail,
 
-Client Details:
-Name: ${form.name}
-Phone: ${form.phone}
-Email: ${form.email || "Not provided"}
-Estimated Budget: ${form.budget || "Not selected"}
+          serviceName: serviceTitle,
+          serviceSlug,
+          serviceRequired: serviceSlug,
 
-Project Requirement:
-${form.message || "I want to discuss this service."}`;
+          estimatedBudget: form.budget,
+          requirement: requirement || "Client wants to discuss this service.",
 
-    const encodedMessage = encodeURIComponent(whatsappMessage);
-    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+          pageUrl: window.location.href,
 
-    window.open(whatsappUrl, "_blank");
+          // This should remain empty for real users.
+          website: form.website,
+        }),
+      });
+
+      const data = await response.json().catch(() => ({
+        success: false,
+        message: "Invalid response received from the server",
+      }));
+
+      if (!response.ok || !data?.success) {
+        throw new Error(data?.message || "Unable to submit your enquiry");
+      }
+
+      const featuresText =
+        serviceFeatures.length > 0
+          ? serviceFeatures
+              .map((feature, index) => `${index + 1}. ${feature}`)
+              .join("\n")
+          : "Custom features will be discussed.";
+
+      const whatsappMessage = [
+        "Hello MayTech Solutions,",
+        "",
+        "I want to start/query about this service.",
+        "",
+        `Service: ${serviceTitle}`,
+        timeline ? `Timeline: ${timeline}` : "",
+        serviceSlug ? `Service Slug: ${serviceSlug}` : "",
+        "",
+        "Service Detail:",
+        serviceDetail || "I want to discuss this service.",
+        "",
+        "Service Features:",
+        featuresText,
+        "",
+        "Client Details:",
+        `Name: ${customerName}`,
+        `Phone: ${cleanedPhone}`,
+        `Email: ${normalizedEmail || "Not provided"}`,
+        `Estimated Budget: ${getBudgetLabel(form.budget)}`,
+        "",
+        "Project Requirement:",
+        requirement || "I want to discuss this service.",
+      ]
+        .filter((line) => line !== "")
+        .join("\n");
+
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+        whatsappMessage,
+      )}`;
+
+      toast.success(data?.message || "Enquiry submitted successfully");
+
+      setForm(initialForm);
+
+      if (whatsappWindow) {
+        whatsappWindow.location.href = whatsappUrl;
+      } else {
+        window.location.href = whatsappUrl;
+      }
+    } catch (error) {
+      console.error("SERVICE ENQUIRY ERROR:", error);
+
+      if (whatsappWindow) {
+        whatsappWindow.close();
+      }
+
+      toast.error(
+        error?.message || "Unable to submit your enquiry. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
-    <div className="sticky top-28 rounded-4xl border border-(--border-soft) bg-white p-6 shadow-(--shadow-medium)">
-      <div className="mb-6">
-        <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-(--primary-dark)">
-          Start Project
-        </p>
+    <>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3500,
+          style: {
+            background: "var(--secondary)",
+            color: "#ffffff",
+            border: "1px solid rgba(255,255,255,0.1)",
+            borderRadius: "14px",
+            boxShadow: "var(--shadow-medium)",
+          },
+          success: {
+            iconTheme: {
+              primary: "var(--primary)",
+              secondary: "#ffffff",
+            },
+          },
+        }}
+      />
 
-        <h2 className="text-3xl font-black text-(--secondary)">
-          Send enquiry on WhatsApp
-        </h2>
+      <div className="sticky top-28 rounded-4xl border border-[var(--border-soft) bg-white p-6 shadow-[var(--shadow-medium)">
+        <div className="mb-6">
+          <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-[var(--primary-dark)">
+            Start Project
+          </p>
 
-        <p className="mt-3 leading-relaxed text-(--text-muted)">
-          Share your details and connect instantly with us for a custom quote.
-        </p>
-      </div>
+          <h2 className="text-3xl font-black text-[var(--secondary)">
+            Request a custom quote
+          </h2>
 
-      <div className="mb-6 rounded-3xl border border-(--border-soft) bg-(--bg-main) p-5">
-        <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-(--primary-dark)">
-          Selected Service
-        </p>
-
-        <h3 className="mb-3 text-xl font-black text-(--secondary)">
-          {serviceTitle}
-        </h3>
-
-        <div className="flex flex-wrap gap-2">
-          <span className="rounded-full bg-(--primary-soft) px-4 py-2 text-xs font-black text-(--primary-dark)">
-            Custom Quote
-          </span>
-
-          <span className="rounded-full bg-white px-4 py-2 text-xs font-black text-(--secondary)">
-            Timeline: {timeline}
-          </span>
+          <p className="mt-3 leading-relaxed text-[var(--text-muted)">
+            Submit your details to add the enquiry to our CRM and connect with
+            us instantly on WhatsApp.
+          </p>
         </div>
-      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="mb-2 block text-sm font-bold text-(--secondary)">
-            Full Name *
-          </label>
+        <div className="mb-6 rounded-3xl border border-[var(--border-soft) bg-[var(--bg-warm) p-5">
+          <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-[var(--primary-dark)">
+            Selected Service
+          </p>
 
-          <div className="flex items-center gap-3 rounded-2xl border border-(--border-soft) bg-(--bg-main) px-4">
-            <User size={18} className="text-(--primary-dark)" />
+          <h3 className="mb-3 text-xl font-black text-[var(--secondary)">
+            {serviceTitle}
+          </h3>
 
-            <input
-              required
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Enter your name"
-              className="w-full bg-transparent py-4 text-sm font-medium outline-none placeholder:text-(--text-muted)"
-            />
+          <div className="flex flex-wrap gap-2">
+            <span className="rounded-full bg-[var(--primary-soft) px-4 py-2 text-xs font-black text-[var(--primary-dark)">
+              Custom Quote
+            </span>
+
+            {timeline ? (
+              <span className="rounded-full border border-[var(--border-soft) bg-white px-4 py-2 text-xs font-black text-[var(--secondary)">
+                Timeline: {timeline}
+              </span>
+            ) : null}
           </div>
         </div>
 
-        <div>
-          <label className="mb-2 block text-sm font-bold text-(--secondary)">
-            Phone Number *
-          </label>
+        <form onSubmit={handleSubmit} className="relative space-y-4">
+          <div>
+            <label
+              htmlFor="service-query-name"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)"
+            >
+              Full Name <span className="text-red-500">*</span>
+            </label>
 
-          <div className="flex items-center gap-3 rounded-2xl border border-(--border-soft) bg-(--bg-main) px-4">
-            <Phone size={18} className="text-(--primary-dark)" />
+            <div className="flex items-center gap-3 rounded-2xl border border-[var(--border-soft) bg-[var(--bg-main) px-4 transition focus-within:border-[var(--primary) focus-within:shadow-[0_0_0_4px_rgba(255,153,0,0.12)]">
+              <User size={18} className="shrink-0 text-[var(--primary-dark)" />
 
-            <input
-              required
-              type="tel"
-              name="phone"
-              value={form.phone}
-              onChange={handleChange}
-              placeholder="Enter phone number"
-              className="w-full bg-transparent py-4 text-sm font-medium outline-none placeholder:text-(--text-muted)"
-            />
+              <input
+                id="service-query-name"
+                required
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="Enter your name"
+                autoComplete="name"
+                disabled={submitting}
+                className="w-full bg-transparent py-4 text-sm font-medium text-[var(--text-main) outline-none placeholder:text-[var(--text-muted) disabled:cursor-not-allowed"
+              />
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label className="mb-2 block text-sm font-bold text-(--secondary)">
-            Email Address
-          </label>
+          <div>
+            <label
+              htmlFor="service-query-phone"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)"
+            >
+              Phone Number <span className="text-red-500">*</span>
+            </label>
 
-          <div className="flex items-center gap-3 rounded-2xl border border-(--border-soft) bg-(--bg-main) px-4">
-            <Mail size={18} className="text-(--primary-dark)" />
+            <div className="flex items-center gap-3 rounded-2xl border border-[var(--border-soft) bg-[var(--bg-main)px-4 transition focus-within:border-[var(--primary) focus-within:shadow-[0_0_0_4px_rgba(255,153,0,0.12)]">
+              <Phone
+                size={18}
+                className="shrink-0 text-[var(--primary-dark)"
+              />
 
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="Enter email address"
-              className="w-full bg-transparent py-4 text-sm font-medium outline-none placeholder:text-(--text-muted)"
-            />
+              <input
+                id="service-query-phone"
+                required
+                type="tel"
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                placeholder="Enter phone number"
+                inputMode="numeric"
+                autoComplete="tel"
+                disabled={submitting}
+                className="w-full bg-transparent py-4 text-sm font-medium text-[var(--text-main) outline-none placeholder:text-[var(--text-muted) disabled:cursor-not-allowed"
+              />
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label className="mb-2 block text-sm font-bold text-(--secondary)">
-            Estimated Budget
-          </label>
+          <div>
+            <label
+              htmlFor="service-query-email"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)"
+            >
+              Email Address
+            </label>
 
-          <select
-            name="budget"
-            value={form.budget}
-            onChange={handleChange}
-            className="w-full rounded-2xl border border-(--border-soft) bg-(--bg-main) px-4 py-4 text-sm font-bold text-(--text-main) outline-none"
+            <div className="flex items-center gap-3 rounded-2xl border border-[var(--border-soft) bg-[var(--bg-main) px-4 transition focus-within:border-[var(--primary) focus-within:shadow-[0_0_0_4px_rgba(255,153,0,0.12)]">
+              <Mail size={18} className="shrink-0 text-[var(--primary-dark)" />
+
+              <input
+                id="service-query-email"
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="Enter email address"
+                autoComplete="email"
+                disabled={submitting}
+                className="w-full bg-transparent py-4 text-sm font-medium text-[var(--text-main) outline-none placeholder:text-[var(--text-muted) disabled:cursor-not-allowed"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="service-query-budget"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)"
+            >
+              Estimated Budget
+            </label>
+
+            <select
+              id="service-query-budget"
+              name="budget"
+              value={form.budget}
+              onChange={handleChange}
+              disabled={submitting}
+              className="w-full rounded-2xl border border-[var(--border-soft) bg-[var(--bg-main) px-4 py-4 text-sm font-bold text-[var(--text-main) outline-none transition focus:border-[var(--primary) focus:shadow-[0_0_0_4px_rgba(255,153,0,0.12)] disabled:cursor-not-allowed"
+            >
+              <option value="">Select budget</option>
+
+              {budgetOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label
+              htmlFor="service-query-message"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)"
+            >
+              Project Requirement
+            </label>
+
+            <div className="flex items-start gap-3 rounded-2xl border border-[var(--border-soft) bg-[var(--bg-main) px-4 transition focus-within:border-[var(--primary) focus-within:shadow-[0_0_0_4px_rgba(255,153,0,0.12)]">
+              <MessageSquare
+                size={18}
+                className="mt-4 shrink-0 text-[var(--primary-dark)"
+              />
+
+              <textarea
+                id="service-query-message"
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                placeholder="Tell us about your project..."
+                rows={5}
+                disabled={submitting}
+                className="w-full resize-none bg-transparent py-4 text-sm font-medium text-[var(--text-main) outline-none placeholder:text-[var(--text-muted) disabled:cursor-not-allowed"
+              />
+            </div>
+          </div>
+
+          {/* Honeypot spam field */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-2499.5 top-0 h-0 w-0 overflow-hidden opacity-0"
           >
-            <option value="">Select budget</option>
-            <option value="Below ₹10,000">Below ₹10,000</option>
-            <option value="₹10,000 - ₹25,000">₹10,000 - ₹25,000</option>
-            <option value="₹25,000 - ₹50,000">₹25,000 - ₹50,000</option>
-            <option value="₹50,000+">₹50,000+</option>
-          </select>
-        </div>
+            <label htmlFor="service-query-website">Website</label>
 
-        <div>
-          <label className="mb-2 block text-sm font-bold text-(--secondary)">
-            Project Requirement
-          </label>
-
-          <div className="flex items-start gap-3 rounded-2xl border border-(--border-soft) bg-(--bg-main) px-4">
-            <MessageSquare size={18} className="mt-4 text-(--primary-dark)" />
-
-            <textarea
-              name="message"
-              value={form.message}
+            <input
+              id="service-query-website"
+              type="text"
+              name="website"
+              value={form.website}
               onChange={handleChange}
-              placeholder="Tell us about your project..."
-              rows={5}
-              className="w-full resize-none bg-transparent py-4 text-sm font-medium outline-none placeholder:text-(--text-muted)"
+              tabIndex={-1}
+              autoComplete="off"
             />
           </div>
-        </div>
 
-        <button
-          type="submit"
-          className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-(--primary) px-6 py-4 text-sm font-black uppercase tracking-[0.18em] text-white shadow-(--shadow-soft) transition hover:-translate-y-1 hover:bg-(--primary-dark) hover:shadow-(--shadow-medium)"
-        >
-          Request Custom Quote
-          <Send size={18} className="transition group-hover:translate-x-1" />
-        </button>
-      </form>
-    </div>
+          <button
+            type="submit"
+            disabled={submitting}
+            className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-[var(--primary) px-6 py-4 text-sm font-black uppercase tracking-[0.15em] text-white shadow-[var(--shadow-soft) transition hover:-translate-y-1 hover:bg-[var(--primary-dark) hover:shadow-[var(--shadow-medium) disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-65"
+          >
+            {submitting ? (
+              <Loader2 size={18} className="animate-spin" />
+            ) : (
+              <Send
+                size={18}
+                className="transition group-hover:translate-x-1"
+              />
+            )}
+
+            {submitting ? "Submitting Enquiry..." : "Request Custom Quote"}
+          </button>
+        </form>
+      </div>
+    </>
   );
 }
