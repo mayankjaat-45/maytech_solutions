@@ -217,38 +217,38 @@ export default function ServiceQueryForm({
       />
 
       {/* Sticky removed so full form and button remain visible */}
-      <div className="self-start rounded-[32px] border border-[var(--border-soft)] bg-white p-5 shadow-[var(--shadow-medium)] sm:p-6">
+      <div className="self-start rounded-4xl border border-[var(--border-soft) bg-white p-5 shadow-[var(--shadow-medium) sm:p-6">
         <div className="mb-6">
-          <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-[var(--primary-dark)]">
+          <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-[var(--primary-dark)">
             Start Project
           </p>
 
-          <h2 className="text-2xl font-black text-[var(--secondary)] sm:text-3xl">
+          <h2 className="text-2xl font-black text-[var(--secondary) sm:text-3xl">
             Request a custom quote
           </h2>
 
-          <p className="mt-3 leading-relaxed text-[var(--text-muted)]">
+          <p className="mt-3 leading-relaxed text-[var(--text-muted)">
             Submit your details to add the enquiry to our CRM and connect with
             us instantly on WhatsApp.
           </p>
         </div>
 
-        <div className="mb-6 rounded-3xl border border-[var(--border-soft)] bg-[var(--bg-warm)] p-5">
-          <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-[var(--primary-dark)]">
+        <div className="mb-6 rounded-3xl border border-[var(--border-soft) bg-[var(--bg-warm) p-5">
+          <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-[var(--primary-dark)">
             Selected Service
           </p>
 
-          <h3 className="mb-3 text-xl font-black text-[var(--secondary)]">
+          <h3 className="mb-3 text-xl font-black text-[var(--secondary)">
             {serviceTitle}
           </h3>
 
           <div className="flex flex-wrap gap-2">
-            <span className="rounded-full bg-[var(--primary-soft)] px-4 py-2 text-xs font-black text-[var(--primary-dark)]">
+            <span className="rounded-full bg-[var(--primary-soft) px-4 py-2 text-xs font-black text-[var(--primary-dark)">
               Custom Quote
             </span>
 
             {timeline ? (
-              <span className="rounded-full border border-[var(--border-soft)] bg-white px-4 py-2 text-xs font-black text-[var(--secondary)]">
+              <span className="rounded-full border border-[var(--border-soft) bg-white px-4 py-2 text-xs font-black text-[var(--secondary)">
                 Timeline: {timeline}
               </span>
             ) : null}
@@ -259,13 +259,13 @@ export default function ServiceQueryForm({
           <div>
             <label
               htmlFor="service-query-name"
-              className="mb-2 block text-sm font-bold text-[var(--secondary)]"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)"
             >
               Full Name <span className="text-red-500">*</span>
             </label>
 
             <div className={inputWrapperClass}>
-              <User size={18} className="shrink-0 text-[var(--primary-dark)]" />
+              <User size={18} className="shrink-0 text-[var(--primary-dark)" />
 
               <input
                 id="service-query-name"
@@ -285,16 +285,13 @@ export default function ServiceQueryForm({
           <div>
             <label
               htmlFor="service-query-phone"
-              className="mb-2 block text-sm font-bold text-[var(--secondary)]"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)"
             >
               Phone Number <span className="text-red-500">*</span>
             </label>
 
             <div className={inputWrapperClass}>
-              <Phone
-                size={18}
-                className="shrink-0 text-[var(--primary-dark)]"
-              />
+              <Phone size={18} className="shrink-0 text-[var(--primary-dark)" />
 
               <input
                 id="service-query-phone"
@@ -315,13 +312,13 @@ export default function ServiceQueryForm({
           <div>
             <label
               htmlFor="service-query-email"
-              className="mb-2 block text-sm font-bold text-[var(--secondary)]"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)"
             >
               Email Address
             </label>
 
             <div className={inputWrapperClass}>
-              <Mail size={18} className="shrink-0 text-[var(--primary-dark)]" />
+              <Mail size={18} className="shrink-0 text-[var(--primary-dark)" />
 
               <input
                 id="service-query-email"
@@ -340,7 +337,7 @@ export default function ServiceQueryForm({
           <div>
             <label
               htmlFor="service-query-budget"
-              className="mb-2 block text-sm font-bold text-[var(--secondary)]"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)"
             >
               Estimated Budget
             </label>
@@ -351,7 +348,7 @@ export default function ServiceQueryForm({
               value={form.budget}
               onChange={handleChange}
               disabled={submitting}
-              className="w-full rounded-2xl border border-[var(--border-soft)] bg-[var(--bg-main)] px-4 py-4 text-sm font-bold text-[var(--text-main)] outline-none transition focus:border-[var(--primary)] focus:shadow-[0_0_0_4px_rgba(255,153,0,0.12)] disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-2xl border border-[var(--border-soft) bg-[var(--bg-main) px-4 py-4 text-sm font-bold text-[var(--text-main) outline-none transition focus:border-[var(--primary) focus:shadow-[0_0_0_4px_rgba(255,153,0,0.12)] disabled:cursor-not-allowed disabled:opacity-60"
             >
               <option value="">Select budget</option>
 
@@ -366,15 +363,15 @@ export default function ServiceQueryForm({
           <div>
             <label
               htmlFor="service-query-message"
-              className="mb-2 block text-sm font-bold text-[var(--secondary)]"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)"
             >
               Project Requirement
             </label>
 
-            <div className="flex items-start gap-3 rounded-2xl border border-[var(--border-soft)] bg-[var(--bg-main)] px-4 transition focus-within:border-[var(--primary)] focus-within:shadow-[0_0_0_4px_rgba(255,153,0,0.12)]">
+            <div className="flex items-start gap-3 rounded-2xl border border-[var(--border-soft bg-[var(--bg-main) px-4 transition focus-within:border-[var(--primary) focus-within:shadow-[0_0_0_4px_rgba(255,153,0,0.12)]">
               <MessageSquare
                 size={18}
-                className="mt-4 shrink-0 text-[var(--primary-dark)]"
+                className="mt-4 shrink-0 text-[var(--primary-dark)"
               />
 
               <textarea
@@ -385,7 +382,7 @@ export default function ServiceQueryForm({
                 placeholder="Tell us about your project..."
                 rows={5}
                 disabled={submitting}
-                className="w-full resize-none bg-transparent py-4 text-sm font-medium text-[var(--text-main)] outline-none placeholder:text-[var(--text-muted)] disabled:cursor-not-allowed disabled:opacity-60"
+                className="w-full resize-none bg-transparent py-4 text-sm font-medium text-[var(--text-main) outline-none placeholder:text-[var(--text-muted) disabled:cursor-not-allowed disabled:opacity-60"
               />
             </div>
           </div>
@@ -393,7 +390,7 @@ export default function ServiceQueryForm({
           {/* Honeypot field */}
           <div
             aria-hidden="true"
-            className="fixed left-[-9999px] h-px w-px overflow-hidden opacity-0"
+            className="fixed -left-2499.75 h-px w-px overflow-hidden opacity-0"
           >
             <label htmlFor="service-query-website">Website</label>
 
@@ -413,7 +410,7 @@ export default function ServiceQueryForm({
             <button
               type="submit"
               disabled={submitting}
-              className="group flex min-h-[56px] w-full items-center justify-center gap-3 rounded-2xl bg-[var(--primary)] px-5 py-4 text-sm font-black uppercase tracking-[0.1em] text-white shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:bg-[var(--primary-dark)] hover:shadow-[var(--shadow-medium)] disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-60"
+              className="group flex min-h-14 w-full items-center justify-center gap-3 rounded-2xl bg-[var(--primary) px-5 py-4 text-sm font-black uppercase tracking-widest text-white shadow-[var(--shadow-soft) transition hover:-translate-y-1 hover:bg-[var(--primary-dark) hover:shadow-[var(--shadow-medium) disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-60"
             >
               {submitting ? (
                 <Loader2 size={19} className="animate-spin" />
