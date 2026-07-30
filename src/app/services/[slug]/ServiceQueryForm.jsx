@@ -12,8 +12,6 @@ const initialForm = {
   email: "",
   budget: "",
   message: "",
-
-  // Honeypot field for basic spam protection.
   website: "",
 };
 
@@ -76,20 +74,16 @@ export default function ServiceQueryForm({
     const normalizedEmail = form.email.trim().toLowerCase();
     const requirement = form.message.trim();
 
-    if (!customerName || customerName.length < 2) {
+    if (customerName.length < 2) {
       toast.error("Please enter your full name");
       return;
     }
 
-    if (!cleanedPhone || cleanedPhone.length < 10 || cleanedPhone.length > 15) {
+    if (cleanedPhone.length < 10 || cleanedPhone.length > 15) {
       toast.error("Please enter a valid phone number");
       return;
     }
 
-    /*
-     * Open a blank tab immediately so the browser does not block
-     * WhatsApp after the asynchronous CRM request finishes.
-     */
     const whatsappWindow = window.open("", "_blank");
 
     try {
@@ -110,11 +104,11 @@ export default function ServiceQueryForm({
           serviceRequired: serviceSlug,
 
           estimatedBudget: form.budget,
+
           requirement: requirement || "Client wants to discuss this service.",
 
           pageUrl: window.location.href,
 
-          // This should remain empty for real users.
           website: form.website,
         }),
       });
@@ -158,13 +152,11 @@ export default function ServiceQueryForm({
         "",
         "Project Requirement:",
         requirement || "I want to discuss this service.",
-      ]
-        .filter((line) => line !== "")
-        .join("\n");
+      ].join("\n");
 
-      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-        whatsappMessage,
-      )}`;
+      const whatsappUrl =
+        `https://wa.me/${WHATSAPP_NUMBER}` +
+        `?text=${encodeURIComponent(whatsappMessage)}`;
 
       toast.success(data?.message || "Enquiry submitted successfully");
 
@@ -190,6 +182,18 @@ export default function ServiceQueryForm({
     }
   };
 
+  const inputWrapperClass =
+    "flex items-center gap-3 rounded-2xl border " +
+    "border-[var(--border-soft)] bg-[var(--bg-main)] px-4 " +
+    "transition focus-within:border-[var(--primary)] " +
+    "focus-within:shadow-[0_0_0_4px_rgba(255,153,0,0.12)]";
+
+  const inputClass =
+    "w-full bg-transparent py-4 text-sm font-medium " +
+    "text-[var(--text-main)] outline-none " +
+    "placeholder:text-[var(--text-muted)] " +
+    "disabled:cursor-not-allowed disabled:opacity-60";
+
   return (
     <>
       <Toaster
@@ -212,38 +216,39 @@ export default function ServiceQueryForm({
         }}
       />
 
-      <div className="sticky top-28 rounded-4xl border border-[var(--border-soft) bg-white p-6 shadow-[var(--shadow-medium)">
+      {/* Sticky removed so full form and button remain visible */}
+      <div className="self-start rounded-[32px] border border-[var(--border-soft)] bg-white p-5 shadow-[var(--shadow-medium)] sm:p-6">
         <div className="mb-6">
-          <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-[var(--primary-dark)">
+          <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-[var(--primary-dark)]">
             Start Project
           </p>
 
-          <h2 className="text-3xl font-black text-[var(--secondary)">
+          <h2 className="text-2xl font-black text-[var(--secondary)] sm:text-3xl">
             Request a custom quote
           </h2>
 
-          <p className="mt-3 leading-relaxed text-[var(--text-muted)">
+          <p className="mt-3 leading-relaxed text-[var(--text-muted)]">
             Submit your details to add the enquiry to our CRM and connect with
             us instantly on WhatsApp.
           </p>
         </div>
 
-        <div className="mb-6 rounded-3xl border border-[var(--border-soft) bg-[var(--bg-warm) p-5">
-          <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-[var(--primary-dark)">
+        <div className="mb-6 rounded-3xl border border-[var(--border-soft)] bg-[var(--bg-warm)] p-5">
+          <p className="mb-2 text-xs font-black uppercase tracking-[0.2em] text-[var(--primary-dark)]">
             Selected Service
           </p>
 
-          <h3 className="mb-3 text-xl font-black text-[var(--secondary)">
+          <h3 className="mb-3 text-xl font-black text-[var(--secondary)]">
             {serviceTitle}
           </h3>
 
           <div className="flex flex-wrap gap-2">
-            <span className="rounded-full bg-[var(--primary-soft) px-4 py-2 text-xs font-black text-[var(--primary-dark)">
+            <span className="rounded-full bg-[var(--primary-soft)] px-4 py-2 text-xs font-black text-[var(--primary-dark)]">
               Custom Quote
             </span>
 
             {timeline ? (
-              <span className="rounded-full border border-[var(--border-soft) bg-white px-4 py-2 text-xs font-black text-[var(--secondary)">
+              <span className="rounded-full border border-[var(--border-soft)] bg-white px-4 py-2 text-xs font-black text-[var(--secondary)]">
                 Timeline: {timeline}
               </span>
             ) : null}
@@ -254,13 +259,13 @@ export default function ServiceQueryForm({
           <div>
             <label
               htmlFor="service-query-name"
-              className="mb-2 block text-sm font-bold text-[var(--secondary)"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)]"
             >
               Full Name <span className="text-red-500">*</span>
             </label>
 
-            <div className="flex items-center gap-3 rounded-2xl border border-[var(--border-soft) bg-[var(--bg-main) px-4 transition focus-within:border-[var(--primary) focus-within:shadow-[0_0_0_4px_rgba(255,153,0,0.12)]">
-              <User size={18} className="shrink-0 text-[var(--primary-dark)" />
+            <div className={inputWrapperClass}>
+              <User size={18} className="shrink-0 text-[var(--primary-dark)]" />
 
               <input
                 id="service-query-name"
@@ -272,7 +277,7 @@ export default function ServiceQueryForm({
                 placeholder="Enter your name"
                 autoComplete="name"
                 disabled={submitting}
-                className="w-full bg-transparent py-4 text-sm font-medium text-[var(--text-main) outline-none placeholder:text-[var(--text-muted) disabled:cursor-not-allowed"
+                className={inputClass}
               />
             </div>
           </div>
@@ -280,15 +285,15 @@ export default function ServiceQueryForm({
           <div>
             <label
               htmlFor="service-query-phone"
-              className="mb-2 block text-sm font-bold text-[var(--secondary)"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)]"
             >
               Phone Number <span className="text-red-500">*</span>
             </label>
 
-            <div className="flex items-center gap-3 rounded-2xl border border-[var(--border-soft) bg-[var(--bg-main)px-4 transition focus-within:border-[var(--primary) focus-within:shadow-[0_0_0_4px_rgba(255,153,0,0.12)]">
+            <div className={inputWrapperClass}>
               <Phone
                 size={18}
-                className="shrink-0 text-[var(--primary-dark)"
+                className="shrink-0 text-[var(--primary-dark)]"
               />
 
               <input
@@ -302,7 +307,7 @@ export default function ServiceQueryForm({
                 inputMode="numeric"
                 autoComplete="tel"
                 disabled={submitting}
-                className="w-full bg-transparent py-4 text-sm font-medium text-[var(--text-main) outline-none placeholder:text-[var(--text-muted) disabled:cursor-not-allowed"
+                className={inputClass}
               />
             </div>
           </div>
@@ -310,13 +315,13 @@ export default function ServiceQueryForm({
           <div>
             <label
               htmlFor="service-query-email"
-              className="mb-2 block text-sm font-bold text-[var(--secondary)"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)]"
             >
               Email Address
             </label>
 
-            <div className="flex items-center gap-3 rounded-2xl border border-[var(--border-soft) bg-[var(--bg-main) px-4 transition focus-within:border-[var(--primary) focus-within:shadow-[0_0_0_4px_rgba(255,153,0,0.12)]">
-              <Mail size={18} className="shrink-0 text-[var(--primary-dark)" />
+            <div className={inputWrapperClass}>
+              <Mail size={18} className="shrink-0 text-[var(--primary-dark)]" />
 
               <input
                 id="service-query-email"
@@ -327,7 +332,7 @@ export default function ServiceQueryForm({
                 placeholder="Enter email address"
                 autoComplete="email"
                 disabled={submitting}
-                className="w-full bg-transparent py-4 text-sm font-medium text-[var(--text-main) outline-none placeholder:text-[var(--text-muted) disabled:cursor-not-allowed"
+                className={inputClass}
               />
             </div>
           </div>
@@ -335,7 +340,7 @@ export default function ServiceQueryForm({
           <div>
             <label
               htmlFor="service-query-budget"
-              className="mb-2 block text-sm font-bold text-[var(--secondary)"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)]"
             >
               Estimated Budget
             </label>
@@ -346,7 +351,7 @@ export default function ServiceQueryForm({
               value={form.budget}
               onChange={handleChange}
               disabled={submitting}
-              className="w-full rounded-2xl border border-[var(--border-soft) bg-[var(--bg-main) px-4 py-4 text-sm font-bold text-[var(--text-main) outline-none transition focus:border-[var(--primary) focus:shadow-[0_0_0_4px_rgba(255,153,0,0.12)] disabled:cursor-not-allowed"
+              className="w-full rounded-2xl border border-[var(--border-soft)] bg-[var(--bg-main)] px-4 py-4 text-sm font-bold text-[var(--text-main)] outline-none transition focus:border-[var(--primary)] focus:shadow-[0_0_0_4px_rgba(255,153,0,0.12)] disabled:cursor-not-allowed disabled:opacity-60"
             >
               <option value="">Select budget</option>
 
@@ -361,15 +366,15 @@ export default function ServiceQueryForm({
           <div>
             <label
               htmlFor="service-query-message"
-              className="mb-2 block text-sm font-bold text-[var(--secondary)"
+              className="mb-2 block text-sm font-bold text-[var(--secondary)]"
             >
               Project Requirement
             </label>
 
-            <div className="flex items-start gap-3 rounded-2xl border border-[var(--border-soft) bg-[var(--bg-main) px-4 transition focus-within:border-[var(--primary) focus-within:shadow-[0_0_0_4px_rgba(255,153,0,0.12)]">
+            <div className="flex items-start gap-3 rounded-2xl border border-[var(--border-soft)] bg-[var(--bg-main)] px-4 transition focus-within:border-[var(--primary)] focus-within:shadow-[0_0_0_4px_rgba(255,153,0,0.12)]">
               <MessageSquare
                 size={18}
-                className="mt-4 shrink-0 text-[var(--primary-dark)"
+                className="mt-4 shrink-0 text-[var(--primary-dark)]"
               />
 
               <textarea
@@ -380,15 +385,15 @@ export default function ServiceQueryForm({
                 placeholder="Tell us about your project..."
                 rows={5}
                 disabled={submitting}
-                className="w-full resize-none bg-transparent py-4 text-sm font-medium text-[var(--text-main) outline-none placeholder:text-[var(--text-muted) disabled:cursor-not-allowed"
+                className="w-full resize-none bg-transparent py-4 text-sm font-medium text-[var(--text-main)] outline-none placeholder:text-[var(--text-muted)] disabled:cursor-not-allowed disabled:opacity-60"
               />
             </div>
           </div>
 
-          {/* Honeypot spam field */}
+          {/* Honeypot field */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -left-2499.5 top-0 h-0 w-0 overflow-hidden opacity-0"
+            className="fixed left-[-9999px] h-px w-px overflow-hidden opacity-0"
           >
             <label htmlFor="service-query-website">Website</label>
 
@@ -403,22 +408,25 @@ export default function ServiceQueryForm({
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={submitting}
-            className="group flex w-full items-center justify-center gap-3 rounded-2xl bg-[var(--primary) px-6 py-4 text-sm font-black uppercase tracking-[0.15em] text-white shadow-[var(--shadow-soft) transition hover:-translate-y-1 hover:bg-[var(--primary-dark) hover:shadow-[var(--shadow-medium) disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-65"
-          >
-            {submitting ? (
-              <Loader2 size={18} className="animate-spin" />
-            ) : (
-              <Send
-                size={18}
-                className="transition group-hover:translate-x-1"
-              />
-            )}
+          {/* Submit button */}
+          <div className="pt-2">
+            <button
+              type="submit"
+              disabled={submitting}
+              className="group flex min-h-[56px] w-full items-center justify-center gap-3 rounded-2xl bg-[var(--primary)] px-5 py-4 text-sm font-black uppercase tracking-[0.1em] text-white shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:bg-[var(--primary-dark)] hover:shadow-[var(--shadow-medium)] disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-60"
+            >
+              {submitting ? (
+                <Loader2 size={19} className="animate-spin" />
+              ) : (
+                <Send
+                  size={19}
+                  className="transition group-hover:translate-x-1"
+                />
+              )}
 
-            {submitting ? "Submitting Enquiry..." : "Request Custom Quote"}
-          </button>
+              {submitting ? "Submitting Enquiry..." : "Request Custom Quote"}
+            </button>
+          </div>
         </form>
       </div>
     </>
