@@ -11,6 +11,23 @@ export const portfolioItems = [
     liveUrl: "https://vini-clinic-web.vercel.app",
   },
   {
+    title: "European Dreams Website",
+    category: "Study Abroad Consultancy Website",
+    serviceType: "Website Development + SEO",
+    tech: ["Next.js", "Tailwind CSS", "Responsive UI", "SEO"],
+    results: [
+      "Study abroad pages",
+      "University listings",
+      "Blog setup",
+      "Lead generation",
+    ],
+    description:
+      "A modern study-abroad consultancy website for students planning to study in Italy and Europe, featuring university listings, admission guidance, scholarship information, visa support, blogs, and consultation-focused pages.",
+    image: "/portfolio/european-dreams.png",
+    liveUrl: "https://european-dreams-demo.vercel.app/",
+  },
+  ,
+  {
     title: "Aurelia Store",
     category: "E-commerce Website",
     serviceType: "Website Development",

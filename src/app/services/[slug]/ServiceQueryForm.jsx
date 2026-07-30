@@ -217,7 +217,7 @@ export default function ServiceQueryForm({
       />
 
       {/* Sticky removed so full form and button remain visible */}
-      <div className="self-start rounded-4xl border border-[var(--border-soft) bg-white p-5 shadow-[var(--shadow-medium) sm:p-6">
+      <div className="self-start rounded-4xl border border-(--border-soft) bg-white p-5 shadow-(--shadow-medium) sm:p-6">
         <div className="mb-6">
           <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-[var(--primary-dark)">
             Start Project
