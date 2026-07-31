@@ -25,8 +25,12 @@ const budgetOptions = [
     label: "₹10,000 - ₹25,000",
   },
   {
+    value: "30000",
+    label: "₹25,000 - ₹30,000",
+  },
+  {
     value: "50000",
-    label: "₹25,000 - ₹50,000",
+    label: "₹30,000 - ₹50,000",
   },
   {
     value: "75000",
@@ -406,22 +410,41 @@ export default function ServiceQueryForm({
           </div>
 
           {/* Submit button */}
-          <div className="pt-2">
+          {/* Submit button */}
+          <div className="pt-3">
             <button
               type="submit"
               disabled={submitting}
-              className="group flex min-h-14 w-full items-center justify-center gap-3 rounded-2xl bg-[var(--primary) px-5 py-4 text-sm font-black uppercase tracking-widest text-white shadow-[var(--shadow-soft) transition hover:-translate-y-1 hover:bg-[var(--primary-dark) hover:shadow-[var(--shadow-medium) disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-60"
+              className="
+      group flex min-h-14 w-full
+      items-center justify-center gap-3
+      rounded-2xl
+      bg-[#ff9900]
+      px-5 py-4
+      text-sm font-black uppercase tracking-widest
+      text-white
+      shadow-lg
+      transition-all duration-300
+      hover:-translate-y-1
+      hover:bg-[#e68a00]
+      hover:shadow-xl
+      disabled:cursor-not-allowed
+      disabled:translate-y-0
+      disabled:opacity-60
+    "
             >
               {submitting ? (
                 <Loader2 size={19} className="animate-spin" />
               ) : (
                 <Send
                   size={19}
-                  className="transition group-hover:translate-x-1"
+                  className="transition-transform group-hover:translate-x-1"
                 />
               )}
 
-              {submitting ? "Submitting Enquiry..." : "Request Custom Quote"}
+              <span>
+                {submitting ? "Submitting Enquiry..." : "Request Custom Quote"}
+              </span>
             </button>
           </div>
         </form>

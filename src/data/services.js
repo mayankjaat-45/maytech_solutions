@@ -51,6 +51,36 @@ export const services = [
     ],
   },
   {
+    title: "Business Website Development",
+    slug: "business-website-development",
+
+    shortDescription:
+      "Professional, responsive and SEO-friendly business websites designed to build trust and generate quality enquiries.",
+
+    description:
+      "We design and develop modern business websites using Next.js, Node.js and MongoDB. The website can include service pages, blogs, enquiry management, email notifications and VPS deployment support.",
+
+    timeline: "12 - 17 days",
+    price: "Custom Quote",
+
+    crmServiceValue: "website_development",
+
+    features: [
+      "Modern and interactive website design",
+      "Next.js frontend development",
+      "Node.js and Express backend",
+      "MongoDB database integration",
+      "Dynamic blog management",
+      "Enquiry form integration",
+      "Enquiries received in CRM",
+      "Email enquiry notification",
+      "Mobile responsive design",
+      "Basic on-page SEO setup",
+      "Admin panel for dynamic content",
+      "VPS deployment support",
+    ],
+  },
+  {
     icon: Blocks,
     slug: "wordpress-website-development",
     title: "WordPress Website Development",
