@@ -1,5 +1,6 @@
 import {
   Blocks,
+  BriefcaseBusiness,
   Code2,
   Globe,
   LayoutTemplate,
@@ -51,14 +52,15 @@ export const services = [
     ],
   },
   {
-    title: "Business Website Development",
+    icon: BriefcaseBusiness,
     slug: "business-website-development",
-
-    shortDescription:
-      "Professional, responsive and SEO-friendly business websites designed to build trust and generate quality enquiries.",
+    title: "Business Website Development",
 
     description:
-      "We design and develop modern business websites using Next.js, Node.js and MongoDB. The website can include service pages, blogs, enquiry management, email notifications and VPS deployment support.",
+      "Professional, responsive and SEO-friendly business websites designed to build trust and generate quality enquiries.",
+
+    detail:
+      "We design and develop modern business websites using Next.js, Node.js and MongoDB. The website can include service pages, blogs, enquiry management, email notifications, admin panel and VPS deployment support.",
 
     timeline: "12 - 17 days",
     price: "Custom Quote",
