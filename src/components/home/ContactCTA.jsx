@@ -35,7 +35,7 @@ export default function ContactCTA() {
               </Link>
 
               <a
-                href="https://wa.me/918279380553"
+                href="https://wa.me/917827931874"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-(--border-soft) bg-white px-7 py-4 font-bold text-(--secondary) shadow-sm transition hover:-translate-y-1 hover:bg-(--bg-soft) hover:shadow-(--shadow-soft)"

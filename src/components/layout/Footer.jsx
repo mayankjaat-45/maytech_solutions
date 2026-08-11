@@ -160,14 +160,14 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-(--text-muted)">
               <li>
                 <a
-                  href="tel:+918279380553"
+                  href="tel:+917827931874"
                   className="flex gap-3 transition hover:text-(--primary-dark)"
                 >
                   <Phone
                     size={18}
                     className="mt-0.5 shrink-0 text-(--primary)"
                   />
-                  <span>+91 82793 80553</span>
+                  <span>+91 7827931874</span>
                 </a>
               </li>
 
@@ -204,7 +204,7 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col gap-3 border-t border-(--border-soft) pt-6 text-sm text-(--text-muted) md:flex-row md:items-center md:justify-between">
           <p>
-            © {new Date().getFullYear()} MayTech Solutions. All rights reserved.
+            © {new Date().getFullYear()} MayTech Solution. All rights reserved.
           </p>
 
           <p>Built with Next.js and Tailwind CSS.</p>
