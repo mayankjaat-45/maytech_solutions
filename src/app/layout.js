@@ -20,6 +20,16 @@ export default function RootLayout({ children }) {
         {children}
         <Footer />
         <FloatingWhatsApp />
+
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-DDCWP02K33"
+        ></script>
+        <script>
+          window.dataLayer = window.dataLayer || []; function gtag()
+          {dataLayer.push(arguments)}
+          gtag('js', new Date()); gtag('config', 'G-DDCWP02K33');
+        </script>
       </body>
     </html>
   );
