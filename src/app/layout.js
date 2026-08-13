@@ -7,11 +7,11 @@ import FloatingWhatsApp from "@/components/common/FloatingWhatsApp";
 
 export const metadata = {
   title: {
-    default: "MayTech Solutions | Website Development Agency",
-    template: "%s | MayTech Solutions",
+    default: "MayTech Solution | Website Development Agency",
+    template: "%s | MayTech Solution",
   },
   description:
-    "MayTech Solutions builds modern, responsive and SEO-friendly websites using Next.js, React.js and Tailwind CSS.",
+    "MayTech Solution builds modern, responsive and SEO-friendly websites using Next.js, React.js and Tailwind CSS.",
 };
 
 export default function RootLayout({ children }) {
