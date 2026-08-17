@@ -66,7 +66,7 @@ export default function Hero() {
             </h1>
 
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-(--text-muted) md:text-lg">
-              MayTech Solutions builds fast, responsive and SEO-friendly
+              MayTech Solution builds fast, responsive and SEO-friendly
               websites using Next.js, React.js and Tailwind CSS for startups,
               service businesses and growing brands.
             </p>
