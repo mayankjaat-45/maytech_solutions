@@ -3,9 +3,9 @@ import { ArrowRight } from "lucide-react";
 import { services } from "@/data/services";
 
 export const metadata = {
-  title: "Services | MayTech Solutions",
+  title: "Services | MayTech Solution",
   description:
-    "Explore website development, Next.js development, SEO optimization, landing page design and Google Ads services by MayTech Solutions.",
+    "Explore website development, Next.js development, SEO optimization, landing page design and Google Ads services by MayTech Solution.",
 };
 
 export default function ServicesPage() {

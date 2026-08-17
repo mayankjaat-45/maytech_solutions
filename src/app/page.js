@@ -6,9 +6,9 @@ import Process from "@/components/home/Process";
 import ContactCTA from "@/components/home/ContactCTA";
 
 export const metadata = {
-  title: "MayTech Solutions | Website Development Agency",
+  title: "MayTech Solution | Website Development Agency",
   description:
-    "MayTech Solutions builds modern, responsive and SEO-friendly websites using Next.js, React.js and Tailwind CSS.",
+    "MayTech Solution builds modern, responsive and SEO-friendly websites using Next.js, React.js and Tailwind CSS.",
 };
 
 export default function HomePage() {

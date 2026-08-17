@@ -3,9 +3,9 @@ import { ExternalLink } from "lucide-react";
 import { portfolioItems } from "@/data/portfolio";
 
 export const metadata = {
-  title: "Portfolio | MayTech Solutions",
+  title: "Portfolio | MayTech Solution",
   description:
-    "View website development, SEO, social media marketing and paid advertising projects completed by MayTech Solutions.",
+    "View website development, SEO, social media marketing and paid advertising projects completed by MayTech Solution.",
 };
 
 export default function PortfolioPage() {

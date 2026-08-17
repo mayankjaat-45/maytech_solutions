@@ -29,13 +29,13 @@ export async function generateMetadata({ params }) {
 
   if (!service) {
     return {
-      title: "Service Not Found | MayTech Solutions",
+      title: "Service Not Found | MayTech Solution",
       description: "The requested service could not be found.",
     };
   }
 
   return {
-    title: `${service.title} | MayTech Solutions`,
+    title: `${service.title} | MayTech Solution`,
     description: service.description,
     alternates: {
       canonical: `${siteUrl}/services/${service.slug}`,
